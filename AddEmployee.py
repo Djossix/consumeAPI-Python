@@ -1,12 +1,11 @@
-import http.client
+import urllib.request
 
 
 class AddEmployee:
     def addNewEmployee(empNr, name, profession):
         newUrl = f"http://localhost:8080/UserManagement/rest/UserService/adduser{empNr}/{name}/{profession}"
 
-        con = http.client.HTTPConnection(newUrl)
-        con.request("GET", "/")
+        with urllib.request.urlopen(newUrl) as response:
+            data = response.read()
 
-        con.close()
-        return
+        return data
